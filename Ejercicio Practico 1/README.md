@@ -6,6 +6,7 @@ Este proyecto consiste en replicar una noticia utilizando HTML5 semántico.
 - Uso de etiquetas semánticas
 - Imágenes
 - Estructura HTML
+- informacion sobre la lesion y llegada al mundial
 
 ## Autor
 Agustín Núñez
