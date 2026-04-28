@@ -1,0 +1,151 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+#contenedor {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    grid-template-areas: 
+        "header header"
+        "nav main"
+        "footer footer";
+    gap: 15px;
+    padding: 15px;
+    border: 2px solid #333; /* Borde del contenedor principal */
+}
+
+#cabecera {
+    grid-area: header;
+    border: 1px solid #999;
+    padding: 20px;
+    text-align: center;
+}
+
+#cabecera img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 15px auto;
+}
+
+#menu {
+    grid-area: nav;
+    border: 1px solid #999;
+    padding: 20px;
+}
+
+#menu h3 {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+#menu ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#menu ul li {
+    margin-bottom: 12px;
+}
+
+#menu ul li a {
+    text-decoration: none;
+    color: #0056b3;
+    font-weight: bold;
+}
+
+#menu ul li a:hover {
+    text-decoration: underline;
+}
+
+#contenido {
+    grid-area: main;
+    border: 1px solid #999;
+    padding: 30px;
+}
+
+#pie {
+    grid-area: footer;
+    border: 1px solid #999;
+    padding: 15px;
+    text-align: center;
+    font-size: 14px;
+    background-color: #f9f9f9;
+}
+
+/* ---------------------------------------------------
+   Estilos específicos del contenido según la muestra
+--------------------------------------------------- */
+
+.titulo-contenido {
+    text-decoration: underline;
+    margin-bottom: 25px;
+    font-size: 28px;
+    font-weight: normal;
+}
+
+#contenido p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+#contenido ul {
+    list-style-type: disc;
+    margin-left: 40px;
+    margin-bottom: 20px;
+}
+
+#contenido ul li {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Colores y formatos de texto */
+
+.link-gbl {
+    color: #0055cc;
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.bg-verde {
+    background-color: #00ff00; /* Color de resaltado verde */
+    color: #000;
+}
+
+.texto-naranja {
+    color: #d35400; /* Color aproximado al naranja/marrón de la muestra */
+}
+
+.bg-amarillo {
+    background-color: #ffff00; /* Color de resaltado amarillo */
+    color: #000;
+}
+
+.bg-celeste {
+    background-color: #00ffff; /* Color de resaltado cyan/celeste */
+    color: #000;
+}
+
+.texto-rojo {
+    color: #cc0000; /* Color rojo para los textos finales de cada ítem */
+}
+
+del {
+    text-decoration: line-through; /* Tachado */
+}
