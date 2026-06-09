@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suscripción Diario - El Vocero Online</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <div class="contenedor-pagina">
+        <header class="cabecera-diario">
+            <div class="cabecera-info">
+                <span id="fecha-actual"></span>
+                <span>Buenos Aires, Argentina</span>
+            </div>
+            <h1 class="diario-titulo">DIARIO EL 6</h1>
+        </header>
+
+        <div class="contenedor">
+            <div class="cabecera-tarjeta">
+                <h1 class="titulo-tarjeta" id="titulo-dinamico">HOLA</h1>
+            </div>
+            
+            <div class="contenedor-formulario">
+                <form id="formulario-suscripcion" novalidate>
+                    <div class="cuadricula-formulario">
+                        <div class="grupo-campo">
+                            <label for="nombre-completo">Nombre Completo</label>
+                            <input type="text" id="nombre-completo" name="nombre-completo" placeholder="Ingresa tu nombre completo">
+                            <div class="mensaje-error" id="error-nombre-completo"></div>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label for="correo-electronico">Correo Electrónico</label>
+                            <input type="email" id="correo-electronico" name="correo-electronico" placeholder="ejemplo@correo.com">
+                            <div class="mensaje-error" id="error-correo-electronico"></div>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label for="contrasena">Contraseña</label>
+                            <input type="password" id="contrasena" name="contrasena" placeholder="Letras y números (mínimo 8)">
+                            <div class="mensaje-error" id="error-contrasena"></div>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label for="repetir-contrasena">Repetir Contraseña</label>
+                            <input type="password" id="repetir-contrasena" name="repetir-contrasena" placeholder="Repetí tu contraseña">
+                            <div class="mensaje-error" id="error-repetir-contrasena"></div>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label for="edad">Edad</label>
+                            <input type="number" id="edad" name="edad" placeholder="Número mayor o igual a 18">
+                            <div class="mensaje-error" id="error-edad"></div>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label for="telefono">Teléfono</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="Mínimo 7 dígitos, solo números">
+                            <div class="mensaje-error" id="error-telefono"></div>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label for="direccion">Dirección</label>
+                            <input type="text" id="direccion" name="direccion" placeholder="Ej: Av Siempreviva 742">
+                            <div class="mensaje-error" id="error-direccion"></div>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label for="ciudad">Ciudad</label>
+                            <input type="text" id="ciudad" name="ciudad" placeholder="Ej: La Plata">
+                            <div class="mensaje-error" id="error-ciudad"></div>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label for="codigo-postal">Código Postal</label>
+                            <input type="text" id="codigo-postal" name="codigo-postal" placeholder="Ej: 1900">
+                            <div class="mensaje-error" id="error-codigo-postal"></div>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label for="dni">DNI</label>
+                            <input type="text" id="dni" name="dni" placeholder="Ej: 41234567">
+                            <div class="mensaje-error" id="error-dni"></div>
+                        </div>
+
+                        <div class="contenedor-enviar">
+                            <button type="submit" class="boton-enviar">Enviar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="pie-diario">
+        <p>&copy; 2026 DIARIO EL 6. Todos los derechos reservados.</p>
+        <div class="pie-enlaces">
+            <a href="#">Contacto</a> | 
+            <a href="#">Términos y condiciones</a> | 
+            <a href="#">Privacidad</a>
+        </div>
+    </footer>
+
+    <div id="modal-emergente" class="modal">
+        <div class="modal-contenido">
+            <div class="modal-cabecera">
+                <span class="cerrar" id="cerrar-modal">&times;</span>
+                <h2 class="modal-titulo" id="modal-titulo">Información del Formulario</h2>
+            </div>
+            <div id="modal-cuerpo"></div>
+        </div>
+    </div>
+
+    <script>
+        const opcionesFecha = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('fecha-actual').textContent = new Date().toLocaleDateString('es-ES', opcionesFecha);
+
+        const validadores = {
+            'nombre-completo': (valor) => {
+                const limpio = valor.trim();
+                if (limpio.length <= 6) {
+                    return "Debe tener más de 6 caracteres";
+                }
+                if (!limpio.includes(' ')) {
+                    return "Debe tener al menos un espacio en el medio";
+                }
+                const partes = limpio.split(' ').filter(p => p.length > 0);
+                if (partes.length < 2) {
+                    return "Debe ingresar nombre y apellido completos separados por espacio";
+                }
+                return null;
+            },
+            'correo-electronico': (valor) => {
+                const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!regexEmail.test(valor)) {
+                    return "Ingresa un correo electrónico válido";
+                }
+                return null;
+            },
+            'contrasena': (valor) => {
+                if (valor.length < 8) {
+                    return "Debe tener al menos 8 caracteres";
+                }
+                const tieneLetras = /[a-zA-Z]/.test(valor);
+                const tieneNumeros = /\d/.test(valor);
+                const soloLetrasYNumeros = /^[a-zA-Z0-9]+$/.test(valor);
+                if (!tieneLetras || !tieneNumeros || !soloLetrasYNumeros) {
+                    return "Debe estar formada solo por letras y números";
+                }
+                return null;
+            },
+            'repetir-contrasena': (valor) => {
+                const contraOriginal = document.getElementById('contrasena').value;
+                if (valor !== contraOriginal) {
+                    return "Las contraseñas no coinciden";
+                }
+                return null;
+            },
+            'edad': (valor) => {
+                const num = Number(valor);
+                if (valor === '' || isNaN(num) || !Number.isInteger(num) || num < 18) {
+                    return "Debe ser un número entero mayor o igual a 18";
+                }
+                return null;
+            },
+            'telefono': (valor) => {
+                if (!/^\d+$/.test(valor)) {
+                    return "No se permiten espacios, guiones ni paréntesis";
+                }
+                if (valor.length < 7) {
+                    return "Debe tener al menos 7 dígitos";
+                }
+                return null;
+            },
+            'direccion': (valor) => {
+                const limpio = valor.trim();
+                if (limpio.length < 5) {
+                    return "Debe tener al menos 5 caracteres";
+                }
+                const tieneLetras = /[a-zA-ZáéíóúÁÉÍÓÚñÑ]/.test(limpio);
+                const tieneNumeros = /\d/.test(limpio);
+                if (!tieneLetras || !tieneNumeros) {
+                    return "Debe contener letras y números";
+                }
+                if (!limpio.includes(' ')) {
+                    return "Debe tener un espacio en el medio";
+                }
+                return null;
+            },
+            'ciudad': (valor) => {
+                if (valor.trim().length < 3) {
+                    return "Debe tener al menos 3 caracteres";
+                }
+                return null;
+            },
+            'codigo-postal': (valor) => {
+                if (valor.trim().length < 3) {
+                    return "Debe tener al menos 3 caracteres";
+                }
+                return null;
+            },
+            'dni': (valor) => {
+                if (!/^\d+$/.test(valor)) {
+                    return "Solo se permiten números";
+                }
+                if (valor.length !== 7 && valor.length !== 8) {
+                    return "Debe ser un número de 7 u 8 dígitos";
+                }
+                return null;
+            }
+        };
+
+        function mostrarError(campoId, mensaje) {
+            const campo = document.getElementById(campoId);
+            const divError = document.getElementById(`error-${campoId}`);
+            campo.classList.add('campo-error');
+            divError.textContent = mensaje;
+            divError.classList.add('mostrar');
+        }
+
+        function limpiarError(campoId) {
+            const campo = document.getElementById(campoId);
+            const divError = document.getElementById(`error-${campoId}`);
+            campo.classList.remove('campo-error');
+            divError.textContent = '';
+            divError.classList.remove('mostrar');
+        }
+
+        function validarCampo(campoId) {
+            const campo = document.getElementById(campoId);
+            const valor = campo.value;
+            if (valor.trim() === '') {
+                mostrarError(campoId, 'Este campo es obligatorio');
+                return false;
+            }
+            const validador = validadores[campoId];
+            if (validador) {
+                const error = validador(valor);
+                if (error) {
+                    mostrarError(campoId, error);
+                    return false;
+                } else {
+                    limpiarError(campoId);
+                    return true;
+                }
+            }
+            return true;
+        }
+
+        const campos = [
+            'nombre-completo',
+            'correo-electronico',
+            'contrasena',
+            'repetir-contrasena',
+            'edad',
+            'telefono',
+            'direccion',
+            'ciudad',
+            'codigo-postal',
+            'dni'
+        ];
+        
+        campos.forEach(campoId => {
+            const campo = document.getElementById(campoId);
+            campo.addEventListener('blur', () => {
+                validarCampo(campoId);
+            });
+            campo.addEventListener('focus', () => {
+                limpiarError(campoId);
+            });
+        });
+
+        const campoNombre = document.getElementById('nombre-completo');
+        const elementoTitulo = document.getElementById('titulo-dinamico');
+
+        function actualizarTitulo() {
+            const nombre = campoNombre.value.trim();
+            if (nombre) {
+                elementoTitulo.textContent = `HOLA ${nombre.toUpperCase()}`;
+            } else {
+                elementoTitulo.textContent = 'HOLA';
+            }
+        }
+
+        campoNombre.addEventListener('keydown', () => {
+            setTimeout(actualizarTitulo, 10);
+        });
+        campoNombre.addEventListener('focus', actualizarTitulo);
+        campoNombre.addEventListener('input', actualizarTitulo);
+
+        const modal = document.getElementById('modal-emergente');
+        const botonCerrar = document.getElementById('cerrar-modal');
+
+        botonCerrar.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(evento) {
+            if (evento.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        document.getElementById('formulario-suscripcion').addEventListener('submit', function(evento) {
+            evento.preventDefault();
+            let tieneErrores = false;
+            const errores = [];
+            
+            campos.forEach(campoId => {
+                if (!validarCampo(campoId)) {
+                    tieneErrores = true;
+                    const mensajeError = document.getElementById(`error-${campoId}`).textContent;
+                    const label = document.querySelector(`label[for="${campoId}"]`).textContent;
+                    errores.push(`${label}: ${mensajeError}`);
+                }
+            });
+
+            const modalTitulo = document.getElementById('modal-titulo');
+            const modalCuerpo = document.getElementById('modal-cuerpo');
+            
+            if (tieneErrores) {
+                modalTitulo.textContent = 'Errores en el Formulario';
+                modalCuerpo.innerHTML = `
+                    <div class="lista-errores">
+                        <h3>Por favor, corrige los siguientes errores:</h3>
+                        <ul>
+                            ${errores.map(error => `<li>${error}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            } else {
+                modalTitulo.textContent = 'Formulario Enviado Correctamente';
+                let dataHtml = '';
+                
+                campos.forEach(campoId => {
+                    const campo = document.getElementById(campoId);
+                    const label = document.querySelector(`label[for="${campoId}"]`).textContent;
+                    let valor = campo.value;
+                    if (campoId === 'contrasena' || campoId === 'repetir-contrasena') {
+                        valor = '••••••••';
+                    }
+                    dataHtml += `
+                        <div class="dato-item">
+                            <div class="dato-etiqueta">${label}:</div>
+                            <div>${valor}</div>
+                        </div>
+                    `;
+                });
+                
+                modalCuerpo.innerHTML = dataHtml;
+            }
+            
+            modal.style.display = 'flex';
+        });
+    </script>
+</body>
+</html>
