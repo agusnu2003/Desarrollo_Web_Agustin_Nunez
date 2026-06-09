@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!-- Declaración del tipo de documento. Le dice al navegador que este es un documento HTML5 moderno. -->
+<html lang="es">
+<!-- La etiqueta <html> es la raíz del documento. El atributo lang="es" indica que el contenido está en español, crucial para accesibilidad y SEO. -->
+
+<head>
+    <!-- <head> contiene metadatos sobre el documento, enlaces a estilos y scripts. No se muestra directamente en la página web. -->
+    
+    <meta charset="UTF-8">
+    <!-- Configura la codificación de caracteres a UTF-8, lo cual permite mostrar correctamente tildes, ñ y otros caracteres especiales. -->
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Esta etiqueta es fundamental para el diseño responsivo (adaptable a móviles). 
+         'width=device-width' hace que el ancho de la página coincida con el ancho de la pantalla del dispositivo.
+         'initial-scale=1.0' establece el nivel de zoom inicial al 100%. -->
+    
+    <title>Boletín Escolar - Preparcial</title>
+    <!-- Define el título que aparece en la pestaña del navegador. -->
+
+    <!-- Importamos fuentes desde Google Fonts para mejorar la estética (Requisito: Tipo de fuente a elección) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,700;1,400&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Elegí 'Merriweather' para los títulos (da un aspecto formal y periodístico) y 'Open Sans' para el texto general (muy legible). -->
+
+    <link rel="stylesheet" href="style.css">
+    <!-- Vincula este documento HTML con nuestra hoja de estilos externa 'style.css'. -->
+</head>
+
+<body>
+    <!-- <body> contiene todo el contenido visible de la página web. -->
+
+    <div class="boletin-container">
+        <!-- Usamos un contenedor principal para limitar el ancho del boletín y centrarlo en la pantalla, 
+             simulando el formato de una hoja A4 impresa, como se ve en la imagen. -->
+
+        <!-- ================= ENCABEZADO ================= -->
+        <header class="header">
+            <!-- <header> es una etiqueta semántica que representa la cabecera de la página o sección. -->
+            
+            <div class="header-top">
+                <!-- Flexbox en CSS nos permitirá poner estos dos `span` uno a cada lado. -->
+                <span class="numero">NÚMERO 23</span>
+                <span class="fecha">NOVIEMBRE DE 2021</span>
+            </div>
+            
+            <h1 class="main-title">Título</h1>
+            <!-- <h1> (Requisito: Encabezados). Solo debe haber un H1 por página, representa el título principal. -->
+            
+            <p class="subtitle"><em>Nombre del colegio</em></p>
+            <!-- <p> para párrafo, y <em> para énfasis (cursiva) (Requisito: Texto con énfasis, cursiva). -->
+        </header>
+
+        <!-- ================= CONTENIDO PRINCIPAL ================= -->
+        <main class="main-content">
+            <!-- <main> agrupa el contenido principal. Usaremos CSS Grid o Flexbox para crear las dos columnas. -->
+
+            <!-- === BARRA LATERAL (COLUMNA IZQUIERDA) === -->
+            <aside class="sidebar">
+                <!-- <aside> se usa para contenido lateral o secundario. Aquí alojamos los artículos breves. -->
+                
+                <h2 class="sidebar-title"><em>En este número</em></h2>
+                <!-- <h2> para subtítulos de sección. -->
+
+                <!-- Artículo 2 -->
+                <article class="sidebar-article">
+                    <!-- <article> representa una composición independiente. Cada noticia es un artículo. -->
+                    <h3>Título del artículo 2</h3>
+                    <p><em>Lead, breve explicación del contenido del artículo. Escribe el texto aquí.</em></p>
+                </article>
+
+                <!-- Artículo 3 -->
+                <article class="sidebar-article">
+                    <h3>Título del artículo 3</h3>
+                    <p><em>Lead, breve explicación del contenido del artículo. Escribe el texto aquí.</em></p>
+                </article>
+
+                <!-- Artículo 4 -->
+                <article class="sidebar-article">
+                    <h3>Título del artículo 4</h3>
+                    <p><em>Lead, breve explicación del contenido del artículo. Escribe el texto aquí.</em></p>
+                </article>
+
+                <!-- Tabla de Contenido -->
+                <div class="toc">
+                    <h3>Tabla de contenido</h3>
+                    <!-- (Requisito: Uso de tabla para ordenar el contenido). 
+                         Aunque visualmente parece una lista, el requerimiento sugiere usar una <table>. 
+                         La usaremos para alinear los títulos a la izquierda y los números de página a la derecha. -->
+                    <table class="toc-table">
+                        <tbody>
+                            <!-- Las tablas requieren <tr> (table row) para filas y <td> (table data) para celdas. -->
+                            <tr>
+                                <td>Titular principal</td>
+                                <td class="page-num">p. 2</td>
+                            </tr>
+                            <tr>
+                                <td>Título artículo 2</td>
+                                <td class="page-num">p. 3</td>
+                            </tr>
+                            <tr>
+                                <td>Título artículo 3</td>
+                                <td class="page-num">p. 3</td>
+                            </tr>
+                            <tr>
+                                <td>Título artículo 4</td>
+                                <td class="page-num">p. 4</td>
+                            </tr>
+                            <tr>
+                                <td>Título artículo 5</td>
+                                <td class="page-num">p. 4</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </aside>
+
+            <!-- === SECCIÓN DE NOTICIA PRINCIPAL (COLUMNA DERECHA) === -->
+            <section class="principal">
+                <!-- <section> para agrupar un bloque de contenido temático. -->
+                
+                <!-- (Requisito: Uso de una imagen). Usamos una imagen genérica de Unsplash que simula una clase. -->
+                <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=800&auto=format&fit=crop" 
+                     alt="Maestra leyendo un libro a niños en el aula" 
+                     class="main-image">
+                <!-- El atributo 'alt' es vital para accesibilidad (lectores de pantalla) y si la imagen falla al cargar. -->
+
+                <h2 class="article-title">Titular del artículo principal</h2>
+                
+                <p class="article-text">
+                    Escribe aquí el texto del lead, que es una síntesis de la idea principal de la información en no más de 25 palabras. 
+                    Sirve para explicar rápidamente a los lectores qué o quiénes son los protagonistas de la historia. 
+                    <br><br> <!-- <br> inserta un salto de línea simple. -->
+                    Escribe el texto aquí. <u>Escribe el texto aquí.</u>
+                    <!-- <u> se usa para subrayar el texto (Requisito: subrayados). -->
+                </p>
+
+                <!-- (Requisito: Incluya un link a otro sitio). -->
+                <div class="read-more-container">
+                    <a href="https://es.wikipedia.org/wiki/Educaci%C3%B3n" target="_blank" class="read-more-btn">Sigue en p. 7</a>
+                    <!-- <a> define un hipervínculo. 
+                         'href' es la URL destino. 
+                         'target="_blank"' hace que el enlace se abra en una pestaña nueva (buena práctica para enlaces externos). -->
+                </div>
+            </section>
+        </main>
+
+        <!-- ================= PIE DE PÁGINA ================= -->
+        <footer class="footer">
+            <span class="footer-page">01</span>
+            <span class="footer-info">TÍTULO DEL BOLETÍN | NÚMERO 23</span>
+        </footer>
+
+    </div>
+</body>
+</html>

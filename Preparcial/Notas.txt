@@ -1,0 +1,25 @@
+Trate de reproducir el contenido de la imagen escribiendo el documento HTML y definiendo el CSS.
+
+Elija un texto para utilizar en el relleno de las secciones donde lo indique la imagen de muestra.
+
+
+
+Criterio para la aprobación:
+
+Uso de CSS
+Uso de colores (no es obligatorio que sean exactamente los mismos de la imagen)
+Uso de una imagen
+Color de fondo (no es obligatorio que sean exactamente los mismos de la imagen)
+Texto con encabezados, énfasis, subrayados, cursiva
+Tipo de fuente a elección
+Uso de lista
+Puede utilizar tablas para ordenar el contenido
+Incluya un link a otro sitio
+
+
+
+
+Entregables:
+
+Archivo ZIP con el documento HTML + CSS
+Captura de pantalla que muestre el documento HMTL renderizado en el navegador web.

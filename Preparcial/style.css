@@ -1,0 +1,228 @@
+/* ================= RESET Y VARIABLES ================= */
+/* 
+   El "Reset" es una buena práctica. Elimina los márgenes y paddings por defecto 
+   que los navegadores aplican, asegurando que nuestro diseño se vea igual en Chrome, Firefox, Safari, etc. 
+*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* box-sizing: border-box hace que el 'padding' y 'border' se incluyan en el ancho total del elemento.
+       Sin esto, un contenedor de 100px con 10px de padding mediría 120px en total, rompiendo layouts. */
+}
+
+/* 
+   Definición de variables CSS en :root (la raíz del documento).
+   ¿Por qué? Porque si el cliente luego pide "cambiemos el amarillo por naranja", 
+   solo cambio esta línea y se actualiza en todo el sitio. Código mantenible y limpio.
+*/
+:root {
+    --color-teal: #1abc9c; /* Color de la barra lateral (Requisito: Uso de colores) */
+    --color-teal-dark: #16a085; /* Para los bordes separadores en la barra lateral */
+    --color-yellow: #fcd55c; /* Detalles amarillos y botón */
+    --color-text-dark: #2c3e50; /* Color de texto principal, más suave que un negro puro (#000) */
+    --color-bg-gray: #f5f6fa; /* Fondo gris claro general */
+    --font-titles: 'Merriweather', serif; /* Tipografía para encabezados */
+    --font-text: 'Open Sans', sans-serif; /* Tipografía para lectura */
+}
+
+/* ================= CUERPO Y CONTENEDOR ================= */
+body {
+    background-color: var(--color-bg-gray); /* (Requisito: Color de fondo) */
+    font-family: var(--font-text);
+    color: var(--color-text-dark);
+    display: flex;
+    justify-content: center; /* Centramos el boletín horizontalmente en la pantalla */
+    padding: 20px; /* Espacio para que no toque los bordes del navegador */
+}
+
+.boletin-container {
+    width: 100%;
+    max-width: 800px; /* Limitamos el ancho para simular una hoja de papel (A4 aprox) */
+    background-color: #ffffff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Sombra suave para darle profundidad (estilo moderno) */
+    /* ¿Qué pasa si cambia?: Si quito esto, se verá plano contra el fondo gris. */
+}
+
+/* ================= ENCABEZADO (HEADER) ================= */
+.header {
+    /* Simulamos el patrón de mármol de la imagen con un gradiente suave si no tenemos la imagen de mármol.
+       Podríamos usar una imagen real de fondo, pero un gradiente lineal cumple bien la función decorativa. */
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    padding: 30px;
+    text-align: center;
+    border-bottom: 8px solid var(--color-yellow); /* Línea amarilla gruesa que separa el header del contenido */
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between; /* Empuja el NÚMERO a la izquierda y FECHA a la derecha */
+    border-top: 1px solid var(--color-yellow);
+    border-bottom: 1px solid var(--color-yellow);
+    padding: 5px 0;
+    margin-bottom: 30px; /* Espacio antes del título grande */
+    font-size: 0.8rem;
+    letter-spacing: 2px; /* Separamos las letras para darle ese estilo elegante de revista */
+    color: #7f8c8d;
+}
+
+.main-title {
+    font-family: var(--font-titles);
+    font-size: 5rem; /* Tamaño muy grande para que destaque */
+    font-weight: 700;
+    line-height: 1; /* Reduce el espacio arriba y abajo de la palabra */
+    margin-bottom: 10px;
+    color: #2b2e35;
+}
+
+.subtitle {
+    font-family: var(--font-titles);
+    font-size: 1.2rem;
+    color: #555;
+    /* Recordar: en el HTML ya usamos <em>, así que ya es cursiva. Podríamos haber puesto 'font-style: italic' aquí en lugar de <em>. */
+}
+
+/* ================= CONTENIDO PRINCIPAL (MAIN) ================= */
+.main-content {
+    display: flex; /* Flexbox es ideal para layouts de columnas 1-dimensionales */
+    /* ¿Por qué Flexbox?: Nos permite poner la barra lateral y el artículo lado a lado fácilmente. */
+    flex-wrap: wrap; /* En móviles, si no hay espacio, la barra lateral pasará arriba o abajo. */
+}
+
+/* === BARRA LATERAL (ASIDE) === */
+.sidebar {
+    width: 35%; /* Ocupa el 35% del ancho total */
+    background-color: var(--color-teal);
+    color: white; /* Texto blanco para contrastar con el fondo oscuro (Accesibilidad) */
+    padding: 30px 20px;
+}
+
+.sidebar-title {
+    font-family: var(--font-titles);
+    font-size: 1.4rem;
+    font-weight: 300;
+    margin-bottom: 25px;
+    border-bottom: 2px solid rgba(255,255,255,0.3); /* Línea sutil debajo del título */
+    padding-bottom: 10px;
+}
+
+.sidebar-article {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--color-teal-dark); /* Línea separadora entre noticias */
+}
+
+.sidebar-article h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.sidebar-article p {
+    font-size: 0.85rem;
+    opacity: 0.9; /* Hace el texto un poquito translúcido para jerarquía visual (título vs texto) */
+}
+
+/* Tabla de Contenido (en la barra lateral) */
+.toc h3 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.toc-table {
+    width: 100%;
+    border-collapse: collapse; /* Elimina los espacios entre las celdas por defecto de las tablas */
+    font-size: 0.85rem;
+}
+
+.toc-table td {
+    padding: 5px 0; /* Espaciado vertical entre items del índice */
+}
+
+.toc-table .page-num {
+    text-align: right; /* Alinea los números de página a la derecha */
+}
+
+/* === ARTÍCULO PRINCIPAL (SECTION) === */
+.principal {
+    width: 65%; /* Ocupa el 65% restante del espacio */
+    padding: 30px;
+    background-color: #ffffff;
+    display: flex; /* Usado para posicionar el botón abajo a la derecha */
+    flex-direction: column;
+}
+
+.main-image {
+    width: 100%; /* Hace que la imagen ocupe todo el ancho de la columna */
+    height: auto; /* Mantiene la proporción de la imagen (no la deforma) */
+    margin-bottom: 20px;
+    border-radius: 4px; /* Bordes ligeramente redondeados, estética moderna */
+}
+
+.article-title {
+    font-family: var(--font-titles);
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.article-text {
+    font-size: 1rem;
+    line-height: 1.6; /* Mayor interlineado para facilitar la lectura */
+    color: #444;
+    flex-grow: 1; /* Empuja el botón "Sigue en p. 7" hacia abajo si hay espacio libre */
+}
+
+.read-more-container {
+    display: flex;
+    justify-content: flex-end; /* Alinea el botón a la derecha */
+    margin-top: 20px;
+}
+
+.read-more-btn {
+    background-color: var(--color-yellow);
+    color: var(--color-text-dark);
+    text-decoration: none; /* Quita el subrayado por defecto de los enlaces <a> */
+    padding: 8px 15px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    font-style: italic;
+    transition: background-color 0.3s ease; /* Añade una animación suave al pasar el mouse (hover) */
+}
+
+/* ¿Qué pasa si el usuario interactúa? El hover mejora la Experiencia de Usuario (UX) */
+.read-more-btn:hover {
+    background-color: #e6c148; /* Oscurece el amarillo al pasar el mouse */
+}
+
+/* ================= PIE DE PÁGINA (FOOTER) ================= */
+.footer {
+    display: flex;
+    justify-content: space-between; /* Número pág a la izq, Título a la der */
+    padding: 15px 30px;
+    background-color: #ffffff;
+    border-top: 1px solid #e0e0e0;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: #7f8c8d;
+}
+
+/* ================= DISEÑO RESPONSIVO (MOBILE FIRST APPROACH) ================= */
+/* Media query: Si la pantalla es más pequeña de 768px (teléfonos, tablets pequeñas), 
+   cambiamos la estructura a una sola columna. */
+@media (max-width: 768px) {
+    .sidebar, .principal {
+        width: 100%; /* Ahora ocupan el 100% del ancho, apilándose una debajo de otra */
+    }
+    
+    .sidebar {
+        order: 2; /* Movemos la barra lateral debajo de la noticia principal en móviles */
+    }
+    
+    .principal {
+        order: 1; /* La noticia principal es más importante, va primero */
+    }
+
+    .main-title {
+        font-size: 3.5rem; /* Achicamos el título para que no se desborde en móviles */
+    }
+}
